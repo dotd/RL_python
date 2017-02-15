@@ -1,12 +1,15 @@
 __author__ = 'dot'
 import numpy as np
 import Utils
+from numpy.random import RandomState
 
-def policy_iteration(mdp, gamma):
+
+def policy_iteration(mdp, gamma, seed=1):
     X = mdp.X
     policy_not_stable = True
     debug = []
-    policy = np.ones(shape=(X),dtype="int")
+    random = RandomState(seed)
+    policy = get_random_policy(X, mdp.U, random)
     debug.append(",".join([str(i) + "->" + str(policy[i]) for i in range(len(policy))]))
     iter_count = 0
     while policy_not_stable:
@@ -62,6 +65,12 @@ def get_matrix_transition(tensor, mu):
 
 def get_effective_reward(transition, reward):
     return np.sum(np.multiply(transition,reward),axis=1)
+
+def get_random_policy(X, U, random):
+    policy = -np.ones(shape=(X),dtype="int")
+    for x in range(X):
+        policy[x] = random.randint(0,U)
+    return policy
 
 # test
 '''

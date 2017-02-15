@@ -4,11 +4,11 @@ __author__ = 'dot'
 def show(mat):
     sb = []
     for x in range(len(mat)):
-        sb1 = ["%3d:" % x]
+        sb1 = []
         for u in range(len(mat[x])):
             sb1.append("%.3f" % mat[x][u])
         line = ",".join(sb1)
-        sb.append(line)
+        sb.append(("%3d: " % (x)) + line)
     return "\n".join(sb)
 
 
